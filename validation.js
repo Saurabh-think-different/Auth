@@ -29,8 +29,6 @@ const checkHash = (pwdfromform,actualpwdhash) => {
 }
 
 
-
-
 module.exports = {
     registerValidation,
     loginValidation,

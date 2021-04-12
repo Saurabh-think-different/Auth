@@ -4,9 +4,13 @@ const { registerValidation, loginValidation } = require('../validation')
 const { hashpassword, checkHash } = require('../validation')
 
 
+router.get('/register', (req, res)=>{
+    res.render('auth/register')
+})
+
+
 router.post('/register', async (req, res)=>{
-
-
+    
     //Check for Register Validation from Joi
     const { error } = registerValidation(req.body)
     if(error) return res.send(error.details[0].message)
@@ -22,12 +26,16 @@ router.post('/register', async (req, res)=>{
     })
 
     try{
-        const savedUser = await user.save()
-        res.send(savedUser)
+        const {_id, name, email} = await user.save()
+        res.send("Registration successful")
     }catch(err){
         res.status(400).send(err)
     }
     
+})
+
+router.get('/login', (req, res)=>{
+    res.render('auth/login')
 })
 
 router.post('/login', async (req, res)=>{
